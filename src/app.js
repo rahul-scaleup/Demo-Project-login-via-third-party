@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const googlePassportSetup = require('./config/google-passport-setup');
 const facebookPassportSetup = require('./config/facebook-passport-setup');
 const gitHubPassportSeup = require('./config/github-passport-setup');
@@ -23,6 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 */
 // Session setup
+app.use(cors());
 app.use(session({ secret: process.env.COOKIE_KEY, resave: false, saveUninitialized: true }));
 
 // Initialize passport
@@ -32,7 +34,7 @@ app.use(passport.session());
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.json({isLoogedIn : true});
     
 });
 

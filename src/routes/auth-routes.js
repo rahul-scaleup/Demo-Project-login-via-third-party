@@ -17,7 +17,8 @@ router.get('/logout', (req, res)=> {
         if (err) {
             return res.status(500).json({ message: 'Could not log out' });
         }
-        res.redirect('/');
+        //res.redirect('/');
+        res.redirect('http://localhost:5173/');
     });
 });
 
@@ -37,15 +38,33 @@ router.get('/facebook',
 router.get('/github', passport.authenticate('github'));
 
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-    res.redirect('/profile');
+    console.log(req.user);
+    const id = req.user._id;
+    const name = req.user.firstName + " " + req.user.lastName;
+    const picture = req.user.picture;
+    const email = req.user.email;
+    console.log(name);
+    res.redirect(`http://localhost:5173/?id=${id}&name=${name}&picture=${picture}&email=${email}`);
 });
 
 router.get('/facebook/callback', passport.authenticate('facebook'), (req, res) => {
-    res.redirect('/profile');
+    //res.redirect('/profile');
+    const id = req.user._id;
+    const name = req.user.firstName + " " + req.user.lastName;
+    const picture = req.user.picture;
+    const email = req.user.email;
+    console.log(name);
+    res.redirect(`http://localhost:5173/?id=${id}&name=${name}&picture=${picture}&email=${email}`);
 });
 
 router.get('/github/callback', passport.authenticate('github'), (req, res) => {
-    res.redirect('/profile');
+    //res.redirect('/profile');
+    const id = req.user._id;
+    const name = req.user.firstName + " " + req.user.lastName;
+    const picture = req.user.picture;
+    const email = req.user.email;
+    console.log(name);
+    res.redirect(`http://localhost:5173/?id=${id}&name=${name}&picture=${picture}&email=${email}`);
 });
 
 module.exports = router;
